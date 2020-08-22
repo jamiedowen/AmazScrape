@@ -1,7 +1,7 @@
 #Define imported packages
 import requests
 from bs4 import BeautifulSoup
-
+import time
 #Define product URL, user agent and wanted price
 URL = "https://www.amazon.co.uk/dp/B081QZPSG8/ref=dp_cerb_2"
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0"}
@@ -29,5 +29,7 @@ def getPrice():
 
 
 if __name__ == "__main__":
-    trackPrice()
+    while True:
+        trackPrice()
+        time.sleep(2)
 
