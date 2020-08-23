@@ -1,3 +1,5 @@
+# Based off Devscover's video https://www.youtube.com/watch?v=SyW6YK7ftis&list=WL&index=46&t=882s
+
 #Define imported packages
 import time
 import requests
