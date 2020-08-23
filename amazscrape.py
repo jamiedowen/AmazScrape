@@ -1,7 +1,9 @@
 #Define imported packages
-import requests
-from bs4 import BeautifulSoup
 import time
+import requests
+import smtplib
+from bs4 import BeautifulSoup
+
 #Define product URL, user agent and wanted price
 URL = "https://www.amazon.co.uk/dp/B081QZPSG8/ref=dp_cerb_2"
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0"}
@@ -26,6 +28,9 @@ def getPrice():
     print(title)
     print("Current Price: £",price, sep='')
     return price
+
+def sendMail():
+    subject = "Amazon price has dropped"
 
 
 if __name__ == "__main__":
