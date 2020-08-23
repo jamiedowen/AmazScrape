@@ -1,5 +1,4 @@
 # Based off Devscover's video https://www.youtube.com/watch?v=SyW6YK7ftis&list=WL&index=46&t=882s
-
 #Define imported packages
 import time
 import requests
@@ -12,28 +11,27 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:79.0) Gec
 WANTED_PRICE = 810
 
 def trackPrice():
-    price = int(getPrice())
+    price = float(getPrice())
     if price > WANTED_PRICE:
         diffhigh = price - WANTED_PRICE
         print(f"Waiting for item to reach £{WANTED_PRICE}")
-        print(f"It's still £{diffhigh} too expensive today")
+        print(f"It's still £{diffhigh:1.2f} too expensive today")
     else:
         difflow = WANTED_PRICE - price
-        print(f"It's £{difflow} cheaper than £{WANTED_PRICE} today")
+        print(f"It's £{difflow:1.2f} cheaper than £{WANTED_PRICE} today")
 
 #Request
 def getPrice():
     page = requests.get(URL, headers=HEADERS)
     soup = BeautifulSoup(page.content, 'lxml')
     title = soup.find(id="productTitle").get_text().strip()
-    price = soup.find(id="priceblock_ourprice").get_text().strip()[1:4]
-    print(title)
+    price = soup.find(id="priceblock_ourprice").get_text().strip()[1:7]
+    print("Item:",title)
     print("Current Price: £",price, sep='')
     return price
 
 def sendMail():
     subject = "Amazon price has dropped"
-
 
 if __name__ == "__main__":
     while True:
