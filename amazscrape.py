@@ -9,11 +9,10 @@ from datetime import datetime
 #Define product URL, user agent and wanted price
 URL = "https://www.amazon.co.uk/dp/B081QZPSG8/ref=dp_cerb_2"
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0"}
-WANTED_PRICE = 810
+WANTED_PRICE = 840
+SENDER_EMAIL = "sender email"
+DESTINATION_EMAIL = "destination email"
 
-now = datetime.now()
-
-print(now)
 def trackPrice():
     price = float(getPrice())
     if price > WANTED_PRICE:
@@ -23,6 +22,7 @@ def trackPrice():
     else:
         diffLow = WANTED_PRICE - price
         print(f"It's £{diffLow:1.2f} cheaper than £{WANTED_PRICE} today")
+        sendMail()
 
 #Request
 def getPrice():
@@ -36,9 +36,17 @@ def getPrice():
 
 def sendMail():
     subject = "Amazon price has dropped"
+    mailtext = "Subject:"+subject+'\n\n'+URL
+
+    server = smtplib.SMTP(host='smtp.gmail.com', port=587)
+    server.ehlo()
+    server.starttls()
+    server.login(SENDER_EMAIL, 'password')
+    server.sendmail(DESTINATION_EMAIL, DESTINATION_EMAIL, mailtext)
+    pass
 
 if __name__ == "__main__":
     while True:
         trackPrice()
-        time.sleep(2)
+        time.sleep(60)
 
